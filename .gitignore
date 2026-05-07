@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+
+# React Native
+android/
+ios/
+
+# logs
+logs
+*.log
+
+# env
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# vscode
+.vscode/
+
+# build
+build/
+coverage/
+
+# database
+*.sqlite
+
+# temp
+tmp/
+temp/
