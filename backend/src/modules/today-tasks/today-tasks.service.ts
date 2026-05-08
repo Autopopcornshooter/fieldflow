@@ -1,3 +1,4 @@
+import { UpdateTodayTaskDto } from './dto/update-today-task.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,13 +15,23 @@ export class TodayTasksService {
     @InjectRepository(TodayTask)
     private todayTaskRepository: Repository<TodayTask>,
   ) {}
-
+  //task 생성
   async create(createTodayTaskDto: CreateTodayTaskDto) {
     const todayTask = this.todayTaskRepository.create(createTodayTaskDto);
 
     return await this.todayTaskRepository.save(todayTask);
   }
+  //task 수정
+  async update(id: number, updateTodayTaskDto: UpdateTodayTaskDto) {
+    await this.todayTaskRepository.update(id, updateTodayTaskDto);
 
+    return await this.todayTaskRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+  //task 확인
   async findAll() {
     return await this.todayTaskRepository.find({
       order: {
@@ -28,7 +39,7 @@ export class TodayTasksService {
       },
     });
   }
-
+  //task 상태 변경
   async updateStatus(id: number, updateStatusDto: UpdateStatusDto) {
     await this.todayTaskRepository.update(id, {
       status: updateStatusDto.status,
@@ -39,5 +50,13 @@ export class TodayTasksService {
         id,
       },
     });
+  }
+  //task 삭제
+  async remove(id: number) {
+    await this.todayTaskRepository.delete(id);
+
+    return {
+      message: '삭제 완료',
+    };
   }
 }
