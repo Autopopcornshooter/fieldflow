@@ -24,3 +24,18 @@ export const createTodayTask = async (
 
   return response.data;
 };
+
+export const updateTaskStatus = async (
+  id: number,
+  status: string,
+) => {
+  const response = await api.patch(
+    `/today-tasks/${id}/status`,
+    {
+      status,
+    },
+  );
+
+  return response.data;
+};
+
